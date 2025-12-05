@@ -1,0 +1,162 @@
+:root {
+  --secondary-color: #1f2937;
+  --background-color: #f8fafc;
+  --text-color: #111827;
+}
+
+.admin-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background-color: var(--secondary-color) !important;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+  z-index: 1200;
+  transition: transform .3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.logo {
+  text-align: center;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(255,255,255,.15);
+}
+
+.logo img {
+  width: 150px;
+  height: auto;
+}
+
+.desktop-only {
+  display: block;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.menu a {
+  padding: 14px 25px;
+  margin: 4px 12px;
+  color: #e5e7eb;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: .2s;
+}
+
+.menu a:hover {
+  background: rgba(255,255,255,0.08);
+  padding-left: 30px;
+}
+
+.menu a.active {
+  background: rgba(255,255,255,0.12);
+  color: white;
+  font-weight: bold;
+}
+
+.logout-btn {
+  margin: 20px 12px;
+  padding: 10px 16px;
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: white;
+  border-radius: 6px;
+}
+
+.content {
+  flex: 1;
+  background: var(--background-color);
+  padding: 25px;
+  overflow-y: auto;
+  margin-left: 240px;
+}
+
+.hamburger {
+  display: none;
+  position: absolute;
+  top: 60px; /* ahora un poco más abajo */
+  left: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1300;
+  transition: opacity .3s ease;
+}
+
+.hamburger span {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background: #000;
+  margin: 6px 0;
+  border-radius: 2px;
+}
+
+.hamburger.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.overlay {
+  display: none;
+}
+
+@media (max-width: 900px) {
+
+  .desktop-only {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: .3s ease;
+   -webkit-backdrop-filter:none;
+    backdrop-filter: blur(4px);
+    z-index: 1200;
+  }
+
+  .overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .content {
+    padding-top: 25px;
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,58 @@
+<div class="loading" *ngIf="loading()">
+  <div class="loading__spinner"></div>
+  <p class="loading__text">Cargando productos...</p>
+</div>
+
+<section class="product-grid" *ngIf="!loading()">
+
+  <ng-container *ngIf="productos().length > 0; else noProductos">
+
+    <div class="product-card" 
+         *ngFor="let product of productos(); trackBy: trackByCodigoProducto"
+         (click)="goToProductDetail(product.codigo_producto)">
+
+      <div class="product-card__image-container">
+        <img
+          [src]="getProductImage(product)"
+          [alt]="product.Producto"
+          class="product-card__image"
+          width="300"
+          height="300"
+        />
+
+        <div class="product-card__quick-view">
+          <button
+            class="product-card__button product-card__button--quick-view"
+            (click)="$event.stopPropagation(); openQuickView(product.codigo_producto)">
+            Vista Rápida
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card__content">
+        <span class="product-card__label">{{ product.Producto }}</span>
+        <p class="product-card__price">MXN {{ product.fldPrecio }}</p>
+        <small class="product-card__brand">{{ product.fldMarca }}</small>
+      </div>
+
+      <div class="product-card__actions">
+        <button
+          class="product-card__button product-card__button--full-width product-card__button--primary"
+          (click)="$event.stopPropagation(); addToCart(product)">
+          Añadir al carrito
+        </button>
+      </div>
+
+    </div>
+
+  </ng-container>
+
+  <ng-template #noProductos>
+    <div class="product-card product-card--empty">
+      <p class="product-card__empty-text">
+        No se encontraron productos disponibles en esta categoría.
+      </p>
+    </div>
+  </ng-template>
+
+</section>

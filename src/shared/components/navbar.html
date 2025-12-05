@@ -1,0 +1,76 @@
+<header class="header">
+
+  <div class="header__top" *ngIf="!isAdminLogged()">
+    
+    <div class="header__top-info">
+      <span class="header__info">Envío gratis en compras mayores a $50.00</span>
+      <span class="separator">·</span>
+      <a routerLink="/location" class="top-link">Ubícanos</a>
+      <span class="separator">·</span>
+      <a routerLink="/contact" class="top-link">Contáctanos</a>
+      <span class="separator">·</span>
+      <a routerLink="/about" class="top-link">Acerca de</a>
+    </div>
+
+    <div class="header__nav-der">
+      <a *ngIf="!isClientLogged() && !isAdminLogged()" routerLink="login-admin" class="header__admin-link"
+        aria-label="Iniciar sesión como administrador">
+        <img src="assets/img/administrador.png" alt="Icono administrador">
+      </a>
+    </div>
+  </div>
+
+  <div class="header__container">
+
+    <div class="header__logo" [class.header__logo--admin]="isAdminLogged()">
+      <a *ngIf="!isAdminLogged()" routerLink="/">
+        <img src="assets/img/logo.png" alt="Logo de SmartPoint">
+      </a>
+      <span *ngIf="isAdminLogged()" class="header__logo-text">
+        <img src="assets/img/logo.png" alt="Logo de SmartPoint">
+      </span>
+    </div>
+
+    <div class="header__admin-profile" *ngIf="isAdminLogged()">
+      <button type="button" class="header__admin-btn" (click)="goToAdminProfile()"
+        aria-label="Editar perfil de admin">
+        <img src="assets/img/administrador.png" alt="Perfil Admin">
+      </button>
+    </div>
+
+    <div *ngIf="!isAdminLogged()">
+      <div class="header__user-actions">
+        <div class="header__user" *ngIf="isClientLogged()">
+          <a routerLink="/perfil" aria-label="Ver perfil">
+            <img src="assets/img/perfil.png" height="32" width="32" alt="Perfil">
+          </a>
+          <button type="button" (click)="logout()" class="header__logout-btn">Salir</button>
+        </div>
+
+        <div *ngIf="!isClientLogged()">
+          <a routerLink="/login" class="header__user-link header__user-link--login">Iniciar Sesión</a>
+          <a routerLink="/register" class="header__user-link header__user-link--register">Registrarse</a>
+        </div>
+
+        <a routerLink="/carrito" class="header__cart" aria-label="Carrito">
+          <span class="header__cart-total">{{ cartTotal() }}</span>
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+
+        <button type="button" class="header__hamburger" (click)="toggleMenu()" aria-label="Abrir menú">☰</button>
+      </div>
+    </div>
+
+  </div>
+
+  <nav class="header__menu" [class.active]="menuOpen()" *ngIf="!isAdminLogged()">
+    <ul class="header__menu-list">
+      <li *ngFor="let cat of categories(); trackBy: trackById" class="header__menu-item">
+        <a class="header__menu-link" [routerLink]="['/categoria', cat.id_categorias]">
+          {{ cat.fldNombre }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+</header>
