@@ -12,7 +12,7 @@ export class RegisterService {
 
   private readonly registroUrl = '/api/auth/cliente/registro'
 
-  constructor(private http: HttpClient) {}
+  constructor(private https: HttpClient) {}
 
   /**
    * Registra un nuevo cliente en el backend.
@@ -23,7 +23,7 @@ export class RegisterService {
   registroCliente(payload: RegisterDTO): Observable<any> {
     console.log('📤 Enviando registro de cliente:', payload);
 
-    return this.http.post(this.registroUrl, payload).pipe(
+    return this.https.post(this.registroUrl, payload).pipe(
       catchError((error: HttpErrorResponse) => {
         const mensaje =
           error.error?.mensaje ??

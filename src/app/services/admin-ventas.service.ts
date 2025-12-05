@@ -12,14 +12,14 @@ export class VentasService {
 
   private baseUrl = '/api'; 
 
-  constructor(private http: HttpClient) {}
+  constructor(private https: HttpClient) {}
 
   getVentas(): Observable<Venta[]> {
-    return this.http.get<Venta[]>(`${this.baseUrl}/admin/ventas`);
+    return this.https.get<Venta[]>(`${this.baseUrl}/admin/ventas`);
   }
 
   // Cancelar una venta por id
   cancelarVenta(idventas: number): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/ventas/${idventas}/cancelar`, {});
+    return this.https.put<void>(`${this.baseUrl}/ventas/${idventas}/cancelar`, {});
   }
 }

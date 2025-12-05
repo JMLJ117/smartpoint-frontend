@@ -16,11 +16,11 @@ export class ClienteService {
 
   private apiUrl = '/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private https: HttpClient) {}
 
   updateCliente(telefono: string, data: ClientePerfil): Observable<void> {
     const body: any = { ...data };
     if (!body.fldContrasena) delete body.fldContrasena;
-    return this.http.put<void>(`${this.apiUrl}/clientes/${telefono}`, body);
+    return this.https.put<void>(`${this.apiUrl}/clientes/${telefono}`, body);
   }
 }

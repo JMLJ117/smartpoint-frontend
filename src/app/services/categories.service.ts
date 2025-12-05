@@ -12,10 +12,10 @@ export class CategoriesService {
 
   private readonly categoriesUrl = "/api/categorias";
 
-  constructor(private http: HttpClient) {}
+  constructor(private https: HttpClient) {}
 
   getCategories(): Observable<CategoriesListInterface[]> {
-    return this.http.get<CategoriesListInterface[]>(this.categoriesUrl).pipe(
+    return this.https.get<CategoriesListInterface[]>(this.categoriesUrl).pipe(
       catchError((error) => {
         const mensaje =
           error.error?.mensaje ??

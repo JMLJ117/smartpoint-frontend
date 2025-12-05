@@ -19,7 +19,7 @@ export class LoginService {
   private readonly loginUrl = '/api/auth/cliente/login';
 
   constructor(
-    private http: HttpClient,
+    private https: HttpClient,
     @Inject(PLATFORM_ID) private platformId: any
   ) {}
 
@@ -29,7 +29,7 @@ export class LoginService {
       return throwError(() => new Error('Login solo disponible en navegador.'));
     }
 
-    return this.http.post<LoginResponse>(this.loginUrl, payload).pipe(
+    return this.https.post<LoginResponse>(this.loginUrl, payload).pipe(
       catchError((error: HttpErrorResponse) => {
         const mensaje =
           error.error?.mensaje ??

@@ -15,7 +15,7 @@ export class AdminClientesService {
 
   private readonly baseUrl = '/api/admin/clientes';
 
-  constructor(private http: HttpClient) {}
+  constructor(private https: HttpClient) {}
 
   private manejarError(error: HttpErrorResponse) {
     const mensaje =
@@ -29,7 +29,7 @@ export class AdminClientesService {
 
   //  LISTAR CLIENTES (ADMIN)
   listarClientes(): Observable<ClienteListDTO[]> {
-    return this.http.get<ClienteListDTO[]>(this.baseUrl).pipe(
+    return this.https.get<ClienteListDTO[]>(this.baseUrl).pipe(
       catchError((err) => this.manejarError(err))
     );
   }
@@ -38,7 +38,7 @@ export class AdminClientesService {
   actualizarCliente(telefono: string, payload: ClienteUpdateDTO): Observable<any> {
     console.log(`✏️ Editando cliente ${telefono}:`, payload);
 
-    return this.http.put(`${this.baseUrl}/${telefono}`, payload).pipe(
+    return this.https.put(`${this.baseUrl}/${telefono}`, payload).pipe(
       catchError((err) => this.manejarError(err))
     );
   }
@@ -47,7 +47,7 @@ export class AdminClientesService {
   eliminarCliente(telefono: string): Observable<void> {
     console.log(`🗑 Eliminando cliente ${telefono}`);
 
-    return this.http.delete<void>(`${this.baseUrl}/${telefono}`).pipe(
+    return this.https.delete<void>(`${this.baseUrl}/${telefono}`).pipe(
       catchError((err) => this.manejarError(err))
     );
   }
@@ -56,7 +56,7 @@ export class AdminClientesService {
   registrarCliente(payload: ClienteRegisterDTO): Observable<any> {
     console.log('📤 Registrando cliente:', payload);
 
-    return this.http.post('/api/auth/cliente/registro', payload).pipe(
+    return this.https.post('/api/auth/cliente/registro', payload).pipe(
       catchError((err) => this.manejarError(err))
     );
   }

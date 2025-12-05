@@ -33,7 +33,7 @@ export class CartService {
   private isBrowser = false;
 
   constructor(
-    private http: HttpClient,
+    private https: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -46,25 +46,25 @@ export class CartService {
   }
 
   crearCarrito(telefono: string, id_usuario: number) {
-    return this.http.post<CrearCarritoResponse>(this.api, { telefono, id_usuario });
+    return this.https.post<CrearCarritoResponse>(this.api, { telefono, id_usuario });
   }
 
   addProduct(idventas: number, codigo_producto: number, cantidad: number) {
-    return this.http.post(`${this.api}/${idventas}/productos`, { codigo_producto, cantidad });
+    return this.https.post(`${this.api}/${idventas}/productos`, { codigo_producto, cantidad });
   }
 
   actualizarProducto(idventas: number, codigo_producto: number, nuevaCantidad: number) {
-    return this.http.put(`${this.api}/${idventas}/productos/${codigo_producto}`, {
+    return this.https.put(`${this.api}/${idventas}/productos/${codigo_producto}`, {
       nueva_cantidad: nuevaCantidad
     });
   }
 
   eliminarProducto(idventas: number, codigo_producto: number) {
-    return this.http.delete(`${this.api}/${idventas}/productos/${codigo_producto}`);
+    return this.https.delete(`${this.api}/${idventas}/productos/${codigo_producto}`);
   }
 
   obtenerCarrito(idventas: number): Observable<ProductoCarrito[]> {
-    return this.http.get<ProductoCarrito[]>(`${this.api}/${idventas}`);
+    return this.https.get<ProductoCarrito[]>(`${this.api}/${idventas}`);
   }
 
   addOrUpdateProduct(idventas: number, codigo_producto: number, cantidad: number) {
@@ -72,12 +72,12 @@ export class CartService {
   }
 
   finalizarVenta(idventas: number, id_tipo_pago: number) {
-    return this.http.post<FinalizarVentaResponse>(`${this.api}/${idventas}/finalizar`, {
+    return this.https.post<FinalizarVentaResponse>(`${this.api}/${idventas}/finalizar`, {
       id_tipo_pago: Number(id_tipo_pago)
     });
   }
 
   cancelarVenta(idventas: number) {
-    return this.http.put(`${this.api}/${idventas}/cancelar`, {});
+    return this.https.put(`${this.api}/${idventas}/cancelar`, {});
   }
 }

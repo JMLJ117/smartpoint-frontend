@@ -11,12 +11,12 @@ export class CategoriesXProductService {
 
   private readonly baseUrl = "/api/categorias";
 
-  constructor(private http: HttpClient) {}
+  constructor(private https: HttpClient) {}
 
   getCategoriesXProduct(id: number): Observable<CategoriesXProductDTO[]> {
     const url = `${this.baseUrl}/${id}/productos`;
 
-    return this.http.get<CategoriesXProductDTO[]>(url).pipe(
+    return this.https.get<CategoriesXProductDTO[]>(url).pipe(
       catchError((error) => {
         const mensaje =
           error.error?.mensaje ??

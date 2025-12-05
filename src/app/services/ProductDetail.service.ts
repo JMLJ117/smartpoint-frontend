@@ -11,10 +11,10 @@ export class ProductDetailService {
 
   private baseUrl = '/api/productos';
 
-  constructor(private http: HttpClient) {}
+  constructor(private https: HttpClient) {}
 
   getProductDetailsById(id: number): Observable<ProductDetailDTO> {
-    return this.http.get<ProductDetailDTO>(`${this.baseUrl}/${id}`);
+    return this.https.get<ProductDetailDTO>(`${this.baseUrl}/${id}`);
   }
 
 }
