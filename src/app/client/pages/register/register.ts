@@ -80,7 +80,7 @@ export class RegisterComponent {
         } else if (httpStatus === 400 || httpStatus === 500) {
             friendlyMessage = ' Error de registro: ' + (backendMessage || 'Ocurrió un error inesperado en el servidor.');
         } else {
-            friendlyMessage = 'Error al registrar: ' + (backendMessage || 'Servidor no respondió.');
+            friendlyMessage = '¡Ya existe una cuenta con este correo electrónico o teléfono! Por favor, verifica tus datos o ve a la página de inicio de sesión.';
         }
 
         this.errorMessage = friendlyMessage;
