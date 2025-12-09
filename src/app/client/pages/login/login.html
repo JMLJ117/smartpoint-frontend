@@ -18,6 +18,14 @@
         <p class="login__subtitle">Inicia sesión para continuar</p>
       </div>
 
+      <div 
+        class="show-message error-message" 
+        role="alert"
+        *ngIf="loginForm.invalid && (loginForm.dirty || loginForm.touched)"
+      >
+        Por favor, completa correctamente los campos requeridos.
+      </div>
+
       <div class="login__form-group">
         <div class="login__floating-label">
           <input
@@ -29,12 +37,12 @@
             [class.invalid]="email?.invalid && (email?.dirty || email?.touched)"
             autocomplete="email"
           />
-          <label for="login-email" class="login__label">Correo Electrónico</label>
+          <label for="login-email" class="login__label">Correo Electrónico<strong>*</strong></label>
         </div>
 
         <div class="login__error" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
           <small *ngIf="email?.errors?.['required']">El correo es obligatorio.</small>
-          <small *ngIf="email?.errors?.['pattern']">Ingresa un correo válido (ej. usuario@dominio.com).</small>
+          <small *ngIf="email?.errors?.['email']">Ingresa un correo válido (ej. usuario@dominio.com).</small>
         </div>
       </div>
 
@@ -49,7 +57,7 @@
             [class.invalid]="password?.invalid && (password?.dirty || password?.touched)"
             autocomplete="current-password"
           />
-          <label for="login-password" class="login__label">Contraseña</label>
+          <label for="login-password" class="login__label">Contraseña<strong>*</strong></label>
         </div>
 
         <div class="login__error" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
@@ -68,21 +76,18 @@
         {{ loading ? 'Ingresando...' : 'Ingresar' }}
       </button>
 
-      <div *ngIf="errorMessage" class="login__error general-error">
-        {{ errorMessage }}
+      <div class="login__links">
+        <a routerLink="/register" class="login__link">¿No tienes cuenta? Regístrate</a>
       </div>
-
-      <div class="login__forgot">
-        <a routerLink="/forgot-password" class="login__forgot-link">¿Olvidaste tu contraseña?</a>
-      </div>
+      
     </form>
   </div>
 </section>
 
 <div class="modal-denied-backdrop" *ngIf="showDeniedModal">
   <div class="modal-denied">
-    <h3>Acceso Denegado</h3>
-    <p>Las credenciales ingresadas no son válidas.</p>
-    <button class="modal-denied-btn" (click)="closeDeniedModal()">Cerrar</button>
+    <h3>Error de Acceso</h3>
+    <p>{{ errorMessage }}</p> 
+    <button type="button" class="modal-denied-btn" (click)="closeDeniedModal()">Entendido</button>
   </div>
 </div>
