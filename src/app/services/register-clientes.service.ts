@@ -18,13 +18,9 @@ export class AdminClientesService {
   constructor(private http: HttpClient) {}
 
   private manejarError(error: HttpErrorResponse) {
-    const mensaje =
-      error.error?.mensaje ??
-      error.message ??
-      'Error desconocido en la operación de clientes';
-
-    console.error('❌ Error en AdminClientesService:', mensaje);
-    return throwError(() => new Error(mensaje));
+    // Solo loguea el error, pero relanza el error original para que el componente lo maneje correctamente
+    console.error('❌ Error en AdminClientesService:', error);
+    return throwError(() => error);
   }
 
   //  LISTAR CLIENTES (ADMIN)

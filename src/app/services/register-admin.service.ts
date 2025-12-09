@@ -15,13 +15,9 @@ export class AdminUsuariosService {
   constructor(private http: HttpClient) {}
 
   private manejarError(error: HttpErrorResponse) {
-    const mensaje =
-      error.error?.mensaje ??
-      error.message ??
-      'Error desconocido en la operación de usuarios admin';
-
-    console.error('❌ Error en AdminUsuariosService:', mensaje);
-    return throwError(() => new Error(mensaje));
+    // Solo loguea el error, pero relanza el error original para que el componente lo maneje correctamente
+    console.error('❌ Error en AdminUsuariosService:', error);
+    return throwError(() => error);
   }
 
   registrarAdmin(payload: RegisterDTO): Observable<any> {

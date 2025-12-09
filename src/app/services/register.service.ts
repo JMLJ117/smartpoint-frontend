@@ -25,13 +25,9 @@ export class RegisterService {
 
     return this.http.post(this.registroUrl, payload).pipe(
       catchError((error: HttpErrorResponse) => {
-        const mensaje =
-          error.error?.mensaje ??
-          error.message ??
-          'Error desconocido al registrar cliente';
-
-        console.error('❌ Error en registroCliente():', mensaje);
-        return throwError(() => new Error(mensaje));
+        // Solo loguea el error, pero relanza el error original para que el componente lo maneje correctamente
+        console.error('❌ Error en registroCliente():', error);
+        return throwError(() => error);
       })
     );
   }
