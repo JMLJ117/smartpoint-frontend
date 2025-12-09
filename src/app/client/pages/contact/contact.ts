@@ -62,18 +62,22 @@ export class Contact implements OnInit, AfterViewInit, OnDestroy {
     const fields: NodeListOf<HTMLElement> = componentEl.querySelectorAll('input, textarea, select');
 
     fields.forEach((field) => {
-
       const mousedown = this.renderer.listen(field, 'mousedown', (e: Event) => {
         this.lastScroll.x = window.scrollX;
         this.lastScroll.y = window.scrollY;
-        e.preventDefault();
-        (field as any).focus({ preventScroll: true });
+        // Solo bloquear para input y textarea, no para select
+        if (field.tagName !== 'SELECT') {
+          e.preventDefault();
+          (field as any).focus({ preventScroll: true });
+        }
       });
 
       const touch = this.renderer.listen(field, 'touchstart', () => {
         this.lastScroll.x = window.scrollX;
         this.lastScroll.y = window.scrollY;
-        (field as any).focus({ preventScroll: true });
+        if (field.tagName !== 'SELECT') {
+          (field as any).focus({ preventScroll: true });
+        }
       });
 
       const focus = this.renderer.listen(field, 'focus', () => {

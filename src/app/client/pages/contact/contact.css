@@ -80,7 +80,7 @@ strong{
     color: var(--text-color);
 }
 
-.form-group select { appearance: none; }
+.form-group select { /* appearance: none; */ }
 .form-group select option { font-family: var(--font-family); }
 
 .form-group input:focus,
